@@ -11,7 +11,7 @@
     "automation"
   ],
   "success_url": "/",
-  "stack": "container",
+  "stack": "heroku-22",
   "env": {
     "SESSION_ID": {
       "description": "Your WhatsApp SESSION_ID. Generate it from the pairing website.",
@@ -145,17 +145,28 @@
       "value": ""
     }
   },
-
   "addons": [
     {
-      "plan": "heroku-postgresql:essential-0"
+      "plan": "heroku-postgresql:essential-0",
+      "as": "DATABASE"
     }
   ],
-  "buildpacks": [],
+  "buildpacks": [
+    { "url": "heroku/nodejs" },
+    { "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest" }
+  ],
   "formation": {
     "web": {
       "quantity": 1,
       "size": "basic"
+    }
+  },
+  "environments": {
+    "test": {
+      "addons": [],
+      "env": {
+        "DATABASE_URL": ""
+      }
     }
   }
 }
